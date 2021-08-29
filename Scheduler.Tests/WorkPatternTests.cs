@@ -57,5 +57,21 @@ namespace Scheduler.Tests
             Assert.AreEqual(workPattern.Pattern, expectedPattern2);
             Assert.ThrowsException<NotImplementedException>(() => workPattern.Pattern = new int[] { 8, 8, 8, 8, 8 });
         }
+        [TestMethod]
+        public void SchedulingAvailableHoursTest()
+        {
+            // Arrange
+            var startDate = new DateTime(2021, 07, 5);
+            var workPattern = new WorkPattern(startDate, new int[] { 8, 8, 8, 8, 8, 0, 0, 8, 8, 8, 8, 0, 0, 0 });
+
+            // Assert
+            Assert.AreEqual(Scheduling.AvailableHours(workPattern, startDate), 40);
+            Assert.AreEqual(Scheduling.AvailableHours(workPattern, startDate.AddDays(3)), 40);
+            Assert.AreEqual(Scheduling.AvailableHours(workPattern, startDate.AddDays(7)), 32);
+            Assert.AreEqual(Scheduling.AvailableHours(workPattern, startDate.AddDays(14)), 40);
+            Assert.AreEqual(Scheduling.AvailableHours(workPattern, startDate.AddDays(21)), 32);
+            Assert.AreEqual(Scheduling.AvailableHours(workPattern, startDate.AddDays(100*14)), 40);
+            Assert.AreEqual(Scheduling.AvailableHours(workPattern, startDate.AddDays(100 * 14 + 7)), 32);
+        }
     }
 }

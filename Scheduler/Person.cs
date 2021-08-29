@@ -14,7 +14,6 @@ namespace Scheduler
 
         public string Name { get; set; }
         public WorkPattern WorkPattern { get; set; }
-        public Dictionary<Project, int> FixedAllocations { get; set; } = new Dictionary<Project, int>();
-        public Dictionary<Project, double> DynamicAllocations { get; set; } = new Dictionary<Project, double>();
+        public Dictionary<Project, double> Allocations { get; set; } = new Dictionary<Project, double>();
     }
 }
